@@ -1,0 +1,31 @@
+body{
+    background: #E3E3E2 !important;
+    font-size: 24px !important;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+.vl {
+  border-left: 3px solid red;
+  position: absolute;
+  height: 1000px;
+  margin-left: 200px;
+  top: 14%;
+}
+
+.table {
+  position: absolute;
+  width: 40%;
+  margin-top: 40px;
+  margin-left: 115px;
+  border-collapse: collapse;
+}
+
+table tr {
+    border-bottom: 1px solid black;
+}
+

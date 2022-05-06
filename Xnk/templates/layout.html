@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block layout %}
+<div class="container-flex">
+    <div class="row no-gutters">
+        <div class="col-md-4 px-0 mx-0 nopaddint">
+            <nav class ="navbar navbar-dark bg-dark">
+                <ul class ="nav navbar-nav mx-auto">
+                    <span class="navbar-brand mb-2 p-3 text-center"> <h2>Pathshala</h2> </span>
+                    <li class ="nav-item">
+                        {% block nav_bar %}
+                        {% endblock %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col mx-0 nopadding">
+            <div class="container">
+                <div class="col align-items-start">
+                    <div class="row no-gutters">
+                        {% block nav_opt %}{% endblock %}
+                        <hr>
+                    </div> 
+                    {% block item %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
