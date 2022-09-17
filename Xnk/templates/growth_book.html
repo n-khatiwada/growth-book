@@ -1,0 +1,161 @@
+{% extends "item_layout.html" %}
+
+{% block nav_opt %}
+<nav class="navbar topbar navbar-dark bg-dark fixed-top">
+    <span class="navbar-brand"><h3>Growth Book</h3></span>
+    <div class="date">{{ day }}, {{ date }}</div>
+    <i class="bi bi-circle-fill circle" id="notify"></i>
+</nav>
+{% endblock %}
+
+{% block content %}
+
+
+<a href="growth_book_previous"><i class="bi bi-arrow-left-square-fill fa-3x left-arrow"></i></a>
+
+<a href="growth_book_next"><i class="bi bi-arrow-right-square-fill fa-3x right-arrow"></i></a>
+
+<a href="growth_book/overview"><i class="bi bi-graph-up-arrow fa-3x overview"></i></a>
+
+<div class="add-wakeup">
+        <svg width="200" height="150">
+        <rect x="0" y="2" rx="20" ry="20" width="170" height="40"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+<form name="wakeup-form" action="update_wakeup" method="POST">
+    <div class='form-group'>
+    <input type="text" class="add-wakeup-box" name="add_wakeup" value="Add Wake-up Time" onfocus="this.value=''"></input>
+    <input type="submit" hidden></input>
+    </div>
+</form>
+</div>
+
+<div class="add-sleep">
+        <svg width="199" height="140">
+        <rect x="-1" y="50" rx="20" ry="20" width="170" height="40"
+                                                         style="fill:#F5F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+<form name="sleep-form" action="update_sleep" method="POST">
+    <div class='form-group'>
+    <input type="text" class="add-sleep-box" name="add_sleep" value="Sleeping Time" onfocus="this.value=''"></input>
+    <input type="submit" hidden></input>
+    </div>
+</form>
+</div>
+
+<div class="wakeup">
+    -- {{ wakeup_time }}  --
+</div>
+
+<div class="sleep">
+    -- {{ sleep_time }} --
+</div>
+
+<svg width="1500" height="3000">
+    <rect x="100" y="20" rx="20" ry="20" width="800" height="1770"
+                                                     style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+</svg>
+
+<div class="vl"></div>
+<form name="myform" id="growthbook" method="POST">
+<table class="table">
+    {% for n in range(33) %}
+    <tr>
+
+            <td>
+
+                <input type='text' class='timebox' name='time' value={{ ((6 + 0.5*n)|round(1)|int)|string + ':' + ('%02d' % ((n*30) % 60))|string }} readonly></input>
+           </td>
+                <td>
+                    <div class='form-group'>
+                <meta id="number" data-number={{ n }}>
+                <input type='text' class='textbox' id='entry' name='entry' value="{{ entries[n][2] if entries and entries[n]}}" number={{ n }} onkeyup= "myFunction()">
+
+                        </input>
+
+                    </div>
+                 
+                </td>
+    </tr>
+                            {% endfor %}
+</table>
+</form>
+
+<form id="worktype" method="POST">
+    <ul class="work-type">
+{% for n in range(33) %}
+<li>
+   <div id="checkbox-container">
+       <input type="checkbox" class="option-input 1 radio" id="option1_{{n}}" name="workType" value="deep" onchange="myWork(this)" />
+       <input type="checkbox" class="option-input 2 radio" id="option2_{{n}}" name="workType" value="shallow" onchange="myWork(this)" />
+       <input type="checkbox" class="option-input 3 radio" id="option3_{{n}}" name="workType" value="break" onchange="myWork(this)" />
+</div>
+</li>
+{% endfor %}
+</form>
+
+<input type="submit" class="btn btn-outline-success submit-button" value="Preparing Next Day →">
+</input>
+
+
+
+<!-- To-do -->
+<div class="add-to-do">
+        <svg width="600" height="600">
+        <rect x="100" y="20" rx="20" ry="20" width="400" height="60"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+<form name="todo-form" action="update_todo" method="POST">
+    <div class='form-group'>
+    <input type="text" class="add-box" name="add_todo" value="Add To-Do" onfocus="this.value=''"></input>
+    <input type="submit" hidden></input>
+    </div>
+</form>
+</div>
+
+
+
+<div class="to-do">
+    <svg width="600" height="600">
+        <rect x="100" y="20" rx="20" ry="20" width="400" height="400"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+    <div class="to-do-text">To-Do &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="all_todo"><button type="button" class="btn btn-secondary">Show All</button></a></div>
+    <hr style="margin-top: 10px; margin-left: 100px" width="400px" size=3>
+
+    <table class="to-do-table">
+        {% for n in range(7) %}
+        <tr>
+            <td>
+                 <form name="myform" action="todo_finished" method="POST">
+                    <div class='to-do-textbox'>{{(n+1)|string + "." + (todo_entries[n][1] if todo_entries and todo_entries[n])|string}}</div>
+                    {% if todo_entries[n] is defined %} 
+                    <input class="form-check-input checkbox" type="checkbox" id="checkboxNoLabel" name= "todo" value="{{  todo_entries[n][0] if todo_entries }}" aria-label="..." onchange="submit()"></input>
+                    {% endif %}
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+<!-- Notes -->
+<div class="notes">
+    <svg width="2000" height="2500">
+        <rect x="100" y="20" rx="20" ry="20" width="420" height="500"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+    <div class="notes-text">Notes</div>
+    <hr style="margin-top: 10px; margin-left: 100px" width="420px" size=3>
+
+    <form name="note-form" action="update_notes" method="POST">
+        <div class='form-group'>
+            <textarea class='notes-textbox' name="notes" cols="40" rows="5">{{ notes_entries[0][0] if notes_entries }}</textarea>
+            <input type="submit" class="btn btn-outline-success submit-button" value="End my Day">
+            </input>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

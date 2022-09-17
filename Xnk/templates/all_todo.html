@@ -1,0 +1,34 @@
+{% extends "item_layout.html" %}
+
+{% block nav_opt %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="all-to-do">
+    <svg width="900" height="1200">
+        <rect x="100" y="20" rx="20" ry="20" width="800" height="{{ 80 + count * 45}}"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+    <div class="all-to-do-text">To-Do</div>
+    <hr style="margin-top: -1100px; margin-left: 100px" width="800px" size=3>
+
+    <table class="all-to-do-table">
+        {% for n in range(count) %}
+        <tr>
+            <td>
+                 <form name="myform" action="todo_finished" method="POST">
+                    <div class='all-to-do-textbox'>{{(n+1)|string + "." + (todo_entries[n][1] if todo_entries and todo_entries[n])|string}}</div>
+                    {% if todo_entries[n] is defined %} 
+                    <input class="form-check-input all-checkbox" type="checkbox" id="checkboxNoLabel" name= "todo" value="{{  todo_entries[n][0] if todo_entries }}" aria-label="..." onchange="submit()"></input>
+                    {% endif %}
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

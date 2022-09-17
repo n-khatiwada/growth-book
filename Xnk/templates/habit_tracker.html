@@ -1,0 +1,107 @@
+{% extends "item_layout.html" %}
+
+
+{% block nav_opt %}
+
+
+{% endblock %}
+
+{% block content %}
+
+{% for n in range(total_habits) %}
+
+<div class="card text-white bg-dark mb-3 habit">
+    <div class="card-header" style="font-size: 18px"># {{ habit_id[n] }} 
+               {% if habit_last_date[n] == date_today %}
+        <span class="today-habit" style="margin-left: 60px;">Today &nbsp; <i class="bi bi-check-circle-fill"></i></span>
+        {% if habit_status[n] == "Pinned" %}
+ <form class="habit-form" action="habit_unpin" method="POST">
+        <button class="btn-pin" type="submit" name="habit_id" value={{ habit_id[n] }}><i class="bi bi-pin-angle-fill" style="margin-left: 192px;color: red;"></i></button></div>
+</form>
+        {% else %}
+         <form class="habit-form" action="habit_pin" method="POST">
+        <button class="btn-pin" type="submit" name="habit_id" value={{ habit_id[n] }}><i class="bi bi-pin-angle" style="margin-left: 192px;"></i></button></div>
+         </form>
+{% endif %}
+        {% else %}
+        {% if habit_status[n] == "Pinned" %}
+         <form class="habit-form" action="habit_unpin" method="POST">
+
+        <button class="btn-pin" type="submit" name="habit_id" value={{ habit_id[n] }}>        <i class="bi bi-pin-angle-fill" style="margin-left: 192px;color: red;"></i></button></div>
+         </form>
+{% else %}
+         <form class="habit-form" action="habit_pin" method="POST">
+
+<button class="btn-pin" type="submit" name="habit_id" value={{ habit_id[n] }}><i class="bi bi-pin-angle" style="margin-left: 192px;"></i></button></div>
+         </form>
+    {% endif %}
+        {% endif %}
+                 <div class="card-body">
+      <h4 class="card-title" style="font-family: 'Snell Roundhand';">{{ habit_section[n] }}</h4> 
+      <div class="count-streak">
+          {% if habit_count[n] == None %}
+          Count: 0<br>
+          {% else %}
+          Count: {{ habit_count[n] }}<br>
+          {% endif %}
+          {% if habit_streak[n] == None %}
+          Streak: 0<br>
+          {% else %}
+          Streak: {{ habit_streak[n] }}<br>
+          {% endif %}
+      </div>
+      <p class="card-text" style="text-align: center;">{{ habit_name[n] }}</p>
+      <form name="habit-form" action="habit_update" method="POST">
+          <div class="form-group">
+              <input type="hidden" name="habit_last_date" value={{ habit_last_date[n] }}></input>
+              <button type="submit" class="btn btn-outline-success habit-button" name="habit_number" value="{{ habit_id[n] }}">Success</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+
+<div class="vl-habit"></div>
+<div class="info">
+            <svg width="290" height="180">
+        <rect x="0" y="2" rx="20" ry="20" width="280" height="180"
+                                                         style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
+    </svg>
+
+<form name="habit-section" action="habit_add" method="POST">
+    <div class='form-group'>
+    <input type="text" class="habit-section" name="habit_section" value="Add Habit Section" onfocus="this.value=''"></input>
+    <input type="text" class="habit-name" name="habit_name" value="Add Habit Name" onfocus="this.value=''"></input>
+                  <button type="submit" class="btn btn-outline-success" style="margin-left: 80px; margin-top: -80px;" name="habit_add">Add Habit</button>
+
+    </div>
+</form>
+
+    <h5>Highest Streak:</h5>
+    {% for n in range(highest_streak|length) %}
+    {{ n + 1 }}. {{ highest_streak[n][0] }}<br>
+    {% endfor %}
+    <br>
+    <h5>Lowest Streak:</h5>
+    {% for n in range(lowest_streak|length) %}
+    {{ n + 1 }}. {{ lowest_streak[n][0] }}<br>
+    {% endfor %}
+    <br>
+
+    <h5>Highest Counts:</h5>
+    {% for n in range(highest_count|length)%}
+    {{ n+1 }}. {{ highest_count[n][0] }}<br>
+    {% endfor %}
+    <br>
+    
+    <h5>Lowest Counts:</h5>
+    {% for n in range(lowest_count|length) %}
+    {{ n+1 }}. {{ lowest_count[n][0] }}<br>
+    {% endfor %}
+    <br>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

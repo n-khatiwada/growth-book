@@ -1,35 +1,14 @@
 {% extends "item_layout.html" %}
 
+{% block nav_opt %}
+<nav class="navbar navbar-expand-md navbar-light">
+    <span class="navbar-brand"><h3>Calendar</h3></span>
+</nav>
+{% endblock %}
+
+
 {% block content %}
 
-
-{% if content_type == "cale" %}
-
 <iframe src="https://calendar.google.com/calendar/embed?height=800&wkst=1&bgcolor=%23ffffff&ctz=Europe%2FBerlin&src=a2hhdGl3YWRhbml0ZXNoOTNAZ21haWwuY29t&src=YWRkcmVzc2Jvb2sjY29udGFjdHNAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&src=ZW4ubnAjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%2333B679&color=%230B8043" style="border-width:0" width="800" height="800" frameborder="0" scrolling="no"></iframe>
-
-{% endif %}
-
-
-{% if content_type == 'grow' %}
-
-<svg width="1500" height="1500">
-    <rect x="100" y="20" rx="20" ry="20" width="800" height="1000"
-        style="fill:#F6F0EF;stroke:black;stroke-width:0;opacity:0.8" />
-</svg>
-
-<div class="vl"></div>
-
-<table class="table">
-  <tr>
-    <td>Time</td>
-    <td>Event</td>
-  </tr>
-  <tr>
-    <td>Time</td>
-    <td>Event</td>
-  </tr>
-</table>
-
-{% endif %}
 
 {% endblock %}

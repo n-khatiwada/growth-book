@@ -1,9 +1,0 @@
-{% extends "layout.html" %}
-
-{% block nav_bar %}
-{% for item in nav_bar %}
-<a class="nav-link" href="{{ item[0][:4]|lower }}">
-    <i class="{{ item[1] }}"></i> &nbsp; {{ item[0] }}
-</a>
-{% endfor %}
-{% endblock %}

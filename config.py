@@ -1,4 +1,6 @@
 DEBUG = True
-BCRYPT_LOG_ROUNDS = 12
-MAIL_FROM_EMAIL = "khatiwadanitesh93@gmail.com"
-
+SQLALCHEMY_ECHO = True
+MYSQL_HOST = 'localhost'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = '1969'
+MYSQL_DB = 'Xnk'

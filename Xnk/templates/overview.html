@@ -1,0 +1,40 @@
+{% extends "item_layout.html" %}
+
+
+{% block nav_opt %}
+<nav class="navbar topbar navbar-dark bg-dark fixed-top">
+    <span class="navbar-brand"><h3>Growth Book</h3></span>
+    <div class="date">{{ day }}, {{ date }}</div>
+    <i class="bi bi-circle-fill circle" id="notify"></i>
+</nav>
+{% endblock %}
+
+{% block content %}
+<a href="/overview_previous"><i class="bi bi-arrow-left-square-fill fa-3x left-arrow-ov"></i></a>
+
+<a href="/overview_next"><i class="bi bi-arrow-right-square-fill fa-3x right-arrow-ov"></i></a>
+
+<a href="/growth_book"><i class="bi bi-book-half fa-3x growth_book"></i></a>
+
+
+<div class="month">
+    {{ month }}
+</div>
+
+<img src="/plotting_deep.png"
+        class="graph1"
+>
+
+<img src="/plotting_shallow.png"
+        class="graph2"
+>
+
+<img src="/plotting_break.png"
+        class="graph3"
+>
+
+<img src="/plotting_sleep.png"
+        class="graph4"
+>
+
+{% endblock %}
